@@ -1,6 +1,13 @@
 <%
-	String userType = request.getParameter("USER_TYPE");
-	session.setAttribute("USER_TYPE", userType);
+	String userType = "";
+
+	if(null == request.getParameter("USER_TYPE")){
+		response.sendRedirect("./index.jsp");
+	}else{
+		userType = request.getParameter("USER_TYPE");
+		session.setAttribute("USER_TYPE", userType);	
+	}
+	
 %>
 
 <!DOCTYPE html>
@@ -162,7 +169,7 @@
 				
 			</div>
 		</div>
-	</div-->
+	</div>
 </body>
 
 </html>

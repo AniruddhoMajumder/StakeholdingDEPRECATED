@@ -65,7 +65,7 @@ public class CompanyDAO{
 	}
 	
 	private String getNewId() throws SQLException{
-		String newID = "com";
+		String newID = "cmp";
 
 		connect();
 

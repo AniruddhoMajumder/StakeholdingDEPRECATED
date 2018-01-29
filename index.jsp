@@ -3,17 +3,23 @@
 <head>
 	<title>Stockmarket</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<style type="text/css">
+		.modal-open {
+			padding-right: 0px !important;
+			overflow: auto !important;
+		}
+	</style>
 </head>
 <body>
 
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" style="padding-right: 0px !important;">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="./index.jsp">Meridia</a>
 		</div>
 		<form class="form-inline">
-			<button type="button" class="btn btn-lg btn-outline-success" style="margin: 0px 15px 0px 0px;" data-toggle="modal" data-target="#signup_modal">Sign Up</button>
-			<button type="button" class="btn btn-lg btn-outline-primary" data-toggle="modal" data-target="#login_modal">Log In</button>
+			<button type="button" class="btn btn-outline-success signup-close" style="margin: 0px 15px 0px 0px;" data-toggle="modal" data-target="#signup_modal">Sign Up</button>
+			<button type="button" class="btn btn-outline-primary login-close" data-toggle="modal" data-target="#login_modal">Log In</button>
 		</form>
 	</div>
 </nav>
@@ -63,9 +69,9 @@
 			</div>
 			<div class="modal-body row">
 				<div class="col-1"></div>
-				<button class="btn btn-lg btn-outline-success col-4 signup-close" onclick="sendData('company', 'register')">Company</button>
+				<button class="btn btn-outline-success col-4 signup-close" onclick="sendData('company', 'register')">Company</button>
 				<div class="col-sm-2"></div>
-				<button class="btn btn-lg btn-outline-success col-4 signup-close" onclick="sendData('trader', 'register')">Trader</button>
+				<button class="btn btn-outline-success col-4 signup-close" onclick="sendData('trader', 'register')">Trader</button>
 				<div class="col-1"></div>
 			</div>
 		</div>
@@ -75,7 +81,7 @@
 
 <!--------------------------------------------LOGIN MODAL------------------------------------------------------>
 <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="login_modalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="login_modalLabel">Log In</h5>
@@ -107,7 +113,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<input type="submit" class="btn btn-lg btn-outline-success btn-md login-close" value="Log In"></button>
+				<input type="submit" class="btn btn-outline-success btn-md login-close" value="Log In"></button>
 				<!--button type="button" class="btn btn-primary">Save changes</button-->
 				</form>
 			</div>

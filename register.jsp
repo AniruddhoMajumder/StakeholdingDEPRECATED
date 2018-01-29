@@ -16,6 +16,7 @@
 	<title>Stockmarket | Register</title>
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/home.css">
 </head>
 
 <body>
@@ -39,36 +40,35 @@
 						<div class="row">
 							<label class="control-label col-3" for="SHARES_REGISTERED">Shares to Register</label>
 							<div class="col-3">
-								<input class="form-control" type="number" id="SHARES_REGISTERED" name="SHARES_REGISTERED" value="0"></input>
+								<input class="form-control" type="number" id="SHARES_REGISTERED" name="SHARES_REGISTERED" pattern = "[0-9]+$" title="Integers Only" value="0"></input>
 							</div>
-
 							<label class="control-label col-3" for="MARKET_LICENCE">Market Licence No.</label>
 							<div class="col-3">
-								<input class="form-control" type="text" id="MARKET_LICENCE" name="MARKET_LICENCE"placeholder="Licence Number"></input>
+								<input class="form-control" type="text" id="MARKET_LICENCE" name="MARKET_LICENCE" placeholder="Licence Number"></input>
 							</div>
 						</div>
 						<br>
 						<div class="row">
 							<label class="control-label col-3" for="SHARES_ISSUED">Shares to Issue</label>
 							<div class="col-3">
-								<input class="form-control" type="number" id="SHARES_ISSUED" name="SHARES_ISSUED" value="0" ></input>
+								<input class="form-control" type="number" min ="0" id="SHARES_ISSUED" name="SHARES_ISSUED" pattern = "[0-9]+$" title="Integers Only" onchange ="return shareNumberValidate()" value="0" ></input>
 							</div>
 
 							<label class="control-label col-3" for="SHARE_PRICE">Share Price</label>
 							<div class="col-3">
-								<input class="form-control" type="text" id="SHARE_PRICE" name="SHARE_PRICE" placeholder="Price in Rupees"></input>
+								<input class="form-control" type="text" min ="1" id="SHARE_PRICE" name="SHARE_PRICE" pattern = "[0-9\.]+$" title="Decimal Number" placeholder="Price in Rupees"></input>
 							</div>
 						</div>
 						<hr>
 						<div class="row">
 							<label class="control-label col-3" for="PHONE">Phone No.</label>
 							<div class="col-3">
-								<input class="form-control" type="text" id="PHONE" name="PHONE" placeholder="Phone Number"></input>
+								<input class="form-control" type="text" id="PHONE" name="PHONE" pattern = "[0-9]{10,15}$" title="Valid 10 or 15 digit phone number" placeholder="Phone Number"></input>
 							</div>
 
 							<label class="control-label col-3" for="EMAIL">Email ID</label>
 							<div class="col-3">
-								<input class="form-control" type="text" id="EMAIL" name="EMAIL" placeholder="Email ID"></input>
+								<input class="form-control" type="text" id="EMAIL" name="EMAIL" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3,4}$" title="valid email id" placeholder="Email ID"></input>
 							</div>							
 						</div>
 						<br>
@@ -97,10 +97,10 @@
 						<hr>
 						<div class="row">
 							<div class="col-6">
-								<input class="form-control btn-outline-success" type="submit" value="Register"></input>
+								<input class="btn btn-outline-success form-control" type="submit" value="Register"></input>
 							</div>
 							<div class="col-6">
-								<input class="form-control btn-outline-secondary" type="reset" value="Clear"></input>
+								<input class="btn btn-outline-primary form-control" type="reset" value="Clear"></input>
 							</div>
 						</div>
 						<hr>
@@ -114,7 +114,7 @@
 						<div class="row">
 							<label class="control-label col-1" for="NAME">Name</label>
 							<div class="col-11">
-								<input class="form-control" type="text" id="NAME" name="NAME" placeholder="Trader's Name"></input>
+								<input class="form-control" type="text" id="NAME" name="NAME" pattern="[A-Za-z\s]+$" placeholder="Trader's Name"></input>
 							</div>
 						</div>
 						<hr>
@@ -123,12 +123,13 @@
 							<label class="control-label col-6" style="text-align: center;" for="EMAIL">Email ID</label>	
 						
 							<div class="col-6">
-								<input class="form-control" type="text" id="PHONE" name="PHONE" placeholder="Phone No."></input>
+								<input class="form-control" type="text" id="PHONE" name="PHONE" pattern = "[0-9]{10,15}$" title="Valid 10 or 15 digit phone number" placeholder="Phone No."></input>
 							</div>
 							<div class="col-6">
-								<input class="form-control" type="text" id="EMAIL" name="EMAIL" placeholder="Email ID"></input>
+								<input class="form-control" type="text" id="EMAIL" name="EMAIL" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="valid email id" placeholder="Email ID" placeholder="Email ID"></input>
 							</div>
 						</div>
+						<br>
 						<div class="row">
 							<label class="control-label col-6" style="text-align: center;" for="ADDRESS">Address</label>
 							<label class="control-label col-6" style="text-align: center;" for="IDNO">Government Issued Photo ID No.</label>
@@ -153,10 +154,11 @@
 						<hr>
 						<div class="row">
 							<div class="col-6">
-								<input class="form-control btn-outline-success" type="submit" value="Register"></input>
+								<input class="btn btn-outline-success form-control" type="submit" value="Register"></input>
 							</div>
+							<br>
 							<div class="col-6">
-								<input class="form-control btn-outline-secondary" type="reset" value="Clear"></input>
+								<input class="btn btn-outline-primary form-control" type="reset" value="Clear"></input>
 							</div>
 						</div>
 						<hr>
@@ -172,5 +174,29 @@
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+	
+	function shareNumberValidate()
+	{
+		var x = document.getElementById('SHARES_REGISTERED').value;
+		var y = document.getElementById('SHARES_ISSUED').value;
+		if(x<y)
+		{
+			alert('Shares Issued need to be less than Share Registered');
+			document.getElementById('SHARES_ISSUED').focus();
+			return false;
+		}
+		return true;
+	}
+	function formValidation()
+	{
+		if(shareNumberValidate())
+		{
+			return true;
+		}
+		return false;
+	}
+</script>
 
 </html>

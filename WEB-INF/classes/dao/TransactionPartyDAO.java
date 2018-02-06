@@ -2,9 +2,9 @@ package dao;
 
 import java.sql.*;
 import java.util.*;
-import project.Company;
+import project.TransactionParty;
 
-public class CompanyDAO{
+public class TransactionPartyDAO{
 
    private String dbUrl,
       dbUser,
@@ -12,7 +12,7 @@ public class CompanyDAO{
 
    private Connection dbConnection;
 
-   public CompanyDAO(String dbUrl, String dbUser, String dbPass){
+   public TransactionPartyDAO(String dbUrl, String dbUser, String dbPass){
       this.dbUrl = dbUrl;
       this.dbUser = dbUser;
       this.dbPass = dbPass;
@@ -35,32 +35,29 @@ public class CompanyDAO{
       }
    }
 
-   public boolean insert(Company newCompany, String user, String pass) throws SQLException{
-      String insertQuery = "INSERT INTO Company VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+   public boolean insert(TransactionParty newParty) throws SQLException{
+      String insertQuery = "INSERT INTO Transaction_Party VALUES(?, ?, ?, ?)";
 
       connect();
       PreparedStatement insertSTAT = dbConnection.prepareStatement(insertQuery);
 
-      insertSTAT.setString(1, newCompany.getId());
-      insertSTAT.setString(2, newCompany.getName());
-      insertSTAT.setString(3, newCompany.getLicence());
-      insertSTAT.setString(4, newCompany.getPhone());
-      insertSTAT.setString(5, newCompany.getEmail());
-      insertSTAT.setString(6, newCompany.getAddress());
-      insertSTAT.setString(7, user);
-      insertSTAT.setString(8, pass);
+      insertSTAT.setString(1, newParty.getId());
+      insertSTAT.setString(2, newParty.getCompanyId());
+      insertSTAT.setString(3, newParty.getTraderId());
+      insertSTAT.setString(4, Double.toString(newParty.getBalance()));
 
       boolean inserted = insertSTAT.executeUpdate()==0?false:true;
 
+      insertSTAT.close();
       disconnect();
 
       return inserted;
    }
 
    public String getNextId() throws SQLException{
-      String newId = "cmp";
+      String newId = "tpy";
 
-      String getQuery = "SELECT COUNT(*) FROM company";
+      String getQuery = "SELECT COUNT(*) FROM Transaction_Party";
 
       connect();
       Statement getIdSTAT = dbConnection.createStatement();

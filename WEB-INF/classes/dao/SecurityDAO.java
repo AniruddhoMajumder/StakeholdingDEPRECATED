@@ -2,9 +2,9 @@ package dao;
 
 import java.sql.*;
 import java.util.*;
-import project.Company;
+import project.Security;
 
-public class CompanyDAO{
+public class SecurityDAO{
 
    private String dbUrl,
       dbUser,
@@ -12,7 +12,7 @@ public class CompanyDAO{
 
    private Connection dbConnection;
 
-   public CompanyDAO(String dbUrl, String dbUser, String dbPass){
+   public SecurityDAO(String dbUrl, String dbUser, String dbPass){
       this.dbUrl = dbUrl;
       this.dbUser = dbUser;
       this.dbPass = dbPass;
@@ -35,20 +35,18 @@ public class CompanyDAO{
       }
    }
 
-   public boolean insert(Company newCompany, String user, String pass) throws SQLException{
-      String insertQuery = "INSERT INTO Company VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+   public boolean insert(Security newSecurity) throws SQLException{
+      String insertQuery = "INSERT INTO Securities VALUES(?, ?, ?, ?, ?, ?)";
 
       connect();
       PreparedStatement insertSTAT = dbConnection.prepareStatement(insertQuery);
 
-      insertSTAT.setString(1, newCompany.getId());
-      insertSTAT.setString(2, newCompany.getName());
-      insertSTAT.setString(3, newCompany.getLicence());
-      insertSTAT.setString(4, newCompany.getPhone());
-      insertSTAT.setString(5, newCompany.getEmail());
-      insertSTAT.setString(6, newCompany.getAddress());
-      insertSTAT.setString(7, user);
-      insertSTAT.setString(8, pass);
+      insertSTAT.setString(1, newSecurity.getId());
+      insertSTAT.setString(2, newSecurity.getCompanyId());
+      insertSTAT.setString(3, newSecurity.getTypeId());
+      insertSTAT.setString(4, Double.toString(newSecurity.getPrice()));
+      insertSTAT.setString(5, Integer.toString(newSecurity.getRegistered()));
+      insertSTAT.setString(6, Integer.toString(newSecurity.getIssued()));
 
       boolean inserted = insertSTAT.executeUpdate()==0?false:true;
 
@@ -58,9 +56,9 @@ public class CompanyDAO{
    }
 
    public String getNextId() throws SQLException{
-      String newId = "cmp";
+      String newId = "sec";
 
-      String getQuery = "SELECT COUNT(*) FROM company";
+      String getQuery = "SELECT COUNT(*) FROM securities";
 
       connect();
       Statement getIdSTAT = dbConnection.createStatement();

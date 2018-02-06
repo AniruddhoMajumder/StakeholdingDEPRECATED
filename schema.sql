@@ -8,16 +8,16 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema stocks
+-- Schema stockmarket
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `stocks` ;
+DROP SCHEMA IF EXISTS `stockmarket` ;
 
 -- -----------------------------------------------------
--- Schema stocks
+-- Schema stockmarket
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `stocks` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `stockmarket` DEFAULT CHARACTER SET utf8 ;
 SHOW WARNINGS;
-USE `stocks` ;
+USE `stockmarket` ;
 
 -- -----------------------------------------------------
 -- Table `Trader`
@@ -99,23 +99,23 @@ CREATE TABLE IF NOT EXISTS `Securities` (
   CONSTRAINT `companyFK`
     FOREIGN KEY (`company_id`)
     REFERENCES `Company` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `typeFK`
-    FOREIGN KEY (`type_id`)
-    REFERENCES `Security_Types` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+  -- CONSTRAINT `typeFK`
+  --  FOREIGN KEY (`type_id`)
+  --  REFERENCES `Security_Types` (`id`)
+  --  ON DELETE CASCADE
+  --  ON UPDATE CASCADE
+  )
 ENGINE = InnoDB;
-
-SHOW WARNINGS;
-CREATE INDEX `typeFK_idx` ON `Securities` (`type_id` ASC);
 
 SHOW WARNINGS;
 CREATE INDEX `companyFK_idx` ON `Securities` (`company_id` ASC);
 
 SHOW WARNINGS;
 
+-- SHOW WARNINGS;
+-- CREATE INDEX `typeFK_idx` ON `Securities` (`type_id` ASC);
 -- -----------------------------------------------------
 -- Table `Security_Trend`
 -- -----------------------------------------------------
@@ -130,8 +130,8 @@ CREATE TABLE IF NOT EXISTS `Security_Trend` (
   CONSTRAINT `securityFK`
     FOREIGN KEY (`security_id`)
     REFERENCES `Securities` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -167,31 +167,31 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
   `amount` DECIMAL(11,2) NULL,
   `t_datetime` DATETIME NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `transBuyerFK`
+  CONSTRAINT `transBuyerFK1`
     FOREIGN KEY (`buyer_id`)
     REFERENCES `Transaction_Party` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `transSellerFK`
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `transSellerFK1`
     FOREIGN KEY (`seller_id`)
     REFERENCES `Transaction_Party` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `securityFK`
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `securityFK1`
     FOREIGN KEY (`security_id`)
     REFERENCES `Securities` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `transBuyerFK_idx` ON `Transaction` (`buyer_id` ASC);
+CREATE INDEX `transBuyerFK1_idx` ON `Transaction` (`buyer_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `transSellerFK_idx` ON `Transaction` (`seller_id` ASC);
+CREATE INDEX `transSellerFK1_idx` ON `Transaction` (`seller_id` ASC);
 
 SHOW WARNINGS;
-CREATE INDEX `securityFK_idx` ON `Transaction` (`security_id` ASC);
+CREATE INDEX `securityFK1_idx` ON `Transaction` (`security_id` ASC);
 
 SHOW WARNINGS;
 

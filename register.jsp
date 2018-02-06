@@ -5,9 +5,9 @@
 		response.sendRedirect("./index.jsp");
 	}else{
 		userType = request.getParameter("USER_TYPE");
-		session.setAttribute("USER_TYPE", userType);	
+		session.setAttribute("USER_TYPE", userType);
 	}
-	
+
 %>
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
 	<div class="container" style="padding-top: 50px;">
 		<div class="row">
 			<div class="col-2">
-				
+
 			</div>
 			<%
 				if(userType.equals("company")){
@@ -31,67 +31,78 @@
 				<div class="col-8" style="border-radius: 5px; padding: 30px; border: 1px solid; border-color: rgb(200, 200, 200);">
 					<form class="form-horizontal" id="signup_form" name="signup_form" action="signup.jsp" method="post">
 						<div class="row">
-							<label class="control-label col-3" for="COMPANY_NAME">Company Name</label>
-							<div class="col-9">
-								<input class="form-control" type="text" id="COMPANY_NAME" name="COMPANY_NAME" placeholder="Company Name"></input>
+							<label class="control-label col-6" for="NAME">Company Name</label>
+							<label class="control-label col-6" for="LICENCE">Licenced ID</label>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<input type="text" class="form-control" id="NAME" name="NAME"></input>
+							</div>
+							<div class="col-6">
+								<input type="text" class="form-control" id="LICENCE" name="LICENCE"></input>
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<label class="control-label col-3" for="SHARES_REGISTERED">Shares to Register</label>
-							<div class="col-3">
-								<input class="form-control" type="number" id="SHARES_REGISTERED" name="SHARES_REGISTERED" pattern = "[0-9]+$" title="Integers Only" value="0"></input>
+							<label class="control-label col-6" for="PHONE">Phone Number</label>
+							<label class="control-label col-6" for="EMAIL">Email ID</label>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<input type="text" class="form-control" id="PHONE" name="PHONE"></input>
 							</div>
-							<label class="control-label col-3" for="MARKET_LICENCE">Market Licence No.</label>
-							<div class="col-3">
-								<input class="form-control" type="text" id="MARKET_LICENCE" name="MARKET_LICENCE" placeholder="Licence Number"></input>
+							<div class="col-6">
+								<input type="text" class="form-control" id="EMAIL" name="EMAIL"></input>
 							</div>
 						</div>
 						<br>
 						<div class="row">
-							<label class="control-label col-3" for="SHARES_ISSUED">Shares to Issue</label>
-							<div class="col-3">
-								<input class="form-control" type="number" min ="0" id="SHARES_ISSUED" name="SHARES_ISSUED" pattern = "[0-9]+$" title="Integers Only" onchange ="return shareNumberValidate()" value="0" ></input>
-							</div>
-
-							<label class="control-label col-3" for="SHARE_PRICE">Share Price</label>
-							<div class="col-3">
-								<input class="form-control" type="text" min ="1" id="SHARE_PRICE" name="SHARE_PRICE" pattern = "[0-9\.]+$" title="Decimal Number" placeholder="Price in Rupees"></input>
+							<label class="control-label col-12" for="ADDRESS">Address</label>
+							<div class="col-12">
+								<textarea class="form-control" form="signup_form" id="ADDRESS" name="ADDRESS"></textarea>
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<label class="control-label col-3" for="PHONE">Phone No.</label>
-							<div class="col-3">
-								<input class="form-control" type="text" id="PHONE" name="PHONE" pattern = "[0-9]{10,15}$" title="Valid 10 or 15 digit phone number" placeholder="Phone Number"></input>
+							<label class="control-label col-6" for="REGISTERED">Shares Registered</label>
+							<label class="control-label col-6" for="ISSUED">Shares Issued</label>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<input type="number" class="form-control" id="REGISTERED" name="REGISTERED"></input>
 							</div>
-
-							<label class="control-label col-3" for="EMAIL">Email ID</label>
-							<div class="col-3">
-								<input class="form-control" type="text" id="EMAIL" name="EMAIL" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3,4}$" title="valid email id" placeholder="Email ID"></input>
-							</div>							
+							<div class="col-6">
+								<input type="number" class="form-control" id="ISSUED" name="ISSUED"></input>
+							</div>
 						</div>
 						<br>
 						<div class="row">
-							<label class="control-label col-3" for="ADDRESS">HQ Address</label>
-
-							<div class="col-9">
-								<textarea class="form-control" form="signup_form" id="ADDRESS" name="ADDRESS" placeholder="Headquarters Address"></textarea>
+							<label class="control-label col-6" for="PRICE">Price per Share</label>
+							<label class="control-label col-6" for="TYPE">Type of Share</label>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<input type="number" class="form-control" id="PRICE" name="PRICE"></input>
+							</div>
+							<div class="col-6">
+								<select class="custom-select" id="TYPE" name="TYPE">
+									<option selected>Choose a type</option>
+									<option value="eshr">Equity Shares</option>
+									<option value="pshr">Preference Shares</option>
+								</select>
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<label class="control-label col-3" for="USER_ID">User ID</label>
-							<div class="col-9">
-								<input class="form-control" type="text" id="USER_ID" name="USER_ID" placeholder="User ID"></input>
-							</div>
+							<label class="control-label col-6" for="USERNAME">Username</label>
+							<label class="control-label col-6" for="PASSWORD">Password</label>
 						</div>
-						<br>
 						<div class="row">
-
-							<label class="control-label col-3" for="PASS">Password</label>
-							<div class="col-9">
-								<input class="form-control" type="password" id="PASS" name="PASS" placeholder="Password"></input>
+							<div class="col-6">
+								<input type="text" class="form-control" id="USERNAME" name="USERNAME"></input>
+							</div>
+							<div class="col-6">
+								<input type="password" class="form-control" id="PASSWORD" name="PASSWORD"></input>
 							</div>
 						</div>
 						<hr>
@@ -105,50 +116,103 @@
 						</div>
 						<hr>
 					</form>
-				</div>		
+				</div>
 			<%
 				}else if(userType.equals("trader")){
 			%>
 				<div class="col-8" style="border-radius: 5px; padding: 30px; border: 1px solid; border-color: rgb(200, 200, 200);">
-					<form class="form-horizontal" id="signup_form" name="signup_form" action="signup.jsp" method="post">
+					<form id="signup_form" name="signup_form" action="signup.jsp" method="post">
 						<div class="row">
-							<label class="control-label col-1" for="NAME">Name</label>
-							<div class="col-11">
-								<input class="form-control" type="text" id="NAME" name="NAME" pattern="[A-Za-z\s]+$" placeholder="Trader's Name"></input>
-							</div>
+							<label class="control-label col-4" for="TITLE">Title</label>
+							<label class="control-label col-8" for="FNAME">First Name</label>
 						</div>
-						<hr>
 						<div class="row">
-							<label class="control-label col-6" style="text-align: center;" for="PHONE">Phone No.</label>
-							<label class="control-label col-6" style="text-align: center;" for="EMAIL">Email ID</label>	
-						
-							<div class="col-6">
-								<input class="form-control" type="text" id="PHONE" name="PHONE" pattern = "[0-9]{10,15}$" title="Valid 10 or 15 digit phone number" placeholder="Phone No."></input>
+							<div class="col-4">
+								<select class="form-control" id="TITLE" name="TITLE">
+									<option selected>Choose...</option>
+									<option value="Mr.">Mr.</option>
+									<option value="Ms.">Ms.</option>
+								</select>
 							</div>
-							<div class="col-6">
-								<input class="form-control" type="text" id="EMAIL" name="EMAIL" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="valid email id" placeholder="Email ID" placeholder="Email ID"></input>
+							<div class="col-8">
+								<input type="text" class="form-control" id="FNAME" name="FNAME"></input>
 							</div>
 						</div>
 						<br>
 						<div class="row">
-							<label class="control-label col-6" style="text-align: center;" for="ADDRESS">Address</label>
-							<label class="control-label col-6" style="text-align: center;" for="IDNO">Government Issued Photo ID No.</label>
+							<label class="control-label col-6" for="MNAME">Middle Name</label>
+							<label class="control-label col-6" for="LNAME">Last Name</label>
+						</div>
+						<div class="row">
 							<div class="col-6">
-								<textarea class="form-control" form="signup_form" id="ADDRESS" name="ADDRESS" placeholder="Address"></textarea>
+								<input type="text" class="form-control" id="MNAME" name="MNAME"></input>
 							</div>
 							<div class="col-6">
-								<input class="form-control" type="text" id="IDNO" name="IDNO" placeholder="Government Issued Photo ID No."></input>
+								<input type="text" class="form-control" id="LNAME" name="LNAME"></input>
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<label class="control-label col-6" style="text-align: center;" for="USER_ID">User ID</label>
-							<label class="control-label col-6" style="text-align: center;" for="PASS">Password</label>
+							<label class="control-label col-12" for="IDPROOF">ID Proof</label>
+							<div class="col-12">
+								<input type="text" class="form-control" id="IDPROOF" name="IDPROOF"></input>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<label class="control-label col-6" for="GENDER">Gender</label>
+							<label class="control-label col-6" for="DOB">Date of Birth</label>
+						</div>
+						<div class="row">
 							<div class="col-6">
-								<input class="form-control" type="text" id="USER_ID" name="USER_ID" placeholder="User ID"></input>
+								<select class="form-control" id="GENDER" name="GENDER">
+									<option selected>Choose...</option>
+									<option value="M">Male</option>
+									<option value="F">Female</option>
+								</select>
 							</div>
 							<div class="col-6">
-								<input class="form-control" type="password" id="PASS" name="PASS" placeholder="Password"></input>
+								<input type="date" class="form-control" id="DOB" name="DOB"></input>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<label class="control-label col-6" for="PHONE">Phone Number</label>
+							<label class="control-label col-6" for="EMAIL">Email ID</label>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<input type="text" class="form-control" id="PHONE" name="PHONE"></input>
+							</div>
+							<div class="col-6">
+								<input type="text" class="form-control" id="EMAIL" name="EMAIL"></input>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<label class="control-label col-12" for="ADDRESS">Address</label>
+							<div class="col-12">
+								<textarea class="form-control" form="signup_form" id="ADDRESS" name="ADDRESS"></textarea>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<label class="control-label col-12" for="BALANCE">Starting Funds</label>
+							<div class="col-12">
+								<input type="number" class="form-control" id="BALANCE" name="BALANCE"></input>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<label class="control-label col-6" for="USERNAME">Username</label>
+							<label class="control-label col-6" for="PASSWORD">Password</label>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<input type="text" class="form-control" id="USERNAME" name="USERNAME"></input>
+							</div>
+							<div class="col-6">
+								<input type="password" class="form-control" id="PASSWORD" name="PASSWORD"></input>
 							</div>
 						</div>
 						<hr>
@@ -156,7 +220,6 @@
 							<div class="col-6">
 								<input class="btn btn-outline-success form-control" type="submit" value="Register"></input>
 							</div>
-							<br>
 							<div class="col-6">
 								<input class="btn btn-outline-primary form-control" type="reset" value="Clear"></input>
 							</div>
@@ -169,34 +232,10 @@
 			%>
 
 			<div class="col-2">
-				
+
 			</div>
 		</div>
 	</div>
 </body>
-
-<script type="text/javascript">
-	
-	function shareNumberValidate()
-	{
-		var x = document.getElementById('SHARES_REGISTERED').value;
-		var y = document.getElementById('SHARES_ISSUED').value;
-		if(x<y)
-		{
-			alert('Shares Issued need to be less than Share Registered');
-			document.getElementById('SHARES_ISSUED').focus();
-			return false;
-		}
-		return true;
-	}
-	function formValidation()
-	{
-		if(shareNumberValidate())
-		{
-			return true;
-		}
-		return false;
-	}
-</script>
 
 </html>

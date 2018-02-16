@@ -1,0 +1,94 @@
+Trader
+   -Id
+   -Title
+   -f_name
+   -m_name
+   -l_name
+   -gender
+   -id_proof
+   -dob
+   -phone
+   -email
+   -address
+   -username
+   -password
+
+Company
+   -id
+   -name
+   -licence
+   -phone
+   -email
+   -address
+   -username
+   -password
+
+Security_Types
+   -id
+   -name
+   -description
+   -voting_rights
+   -transferrable
+
+Share_Trend
+   -security_id
+   -closing_datetime
+   -closing_price
+
+Transaction_Party
+   -id
+   -company_id
+   -trader_id
+   -balance
+
+Transaction
+   -id
+   -buyer_id
+   -seller_id
+   -security_id
+   -number
+   -amount
+   -t_datetime
+
+Securities
+   -id
+   -company_id
+   -type_id
+   -price
+   -registered
+   -issued
+
+[Transaction_Party.id]_Portfolio??
+   -security_id
+   -shares_owned
+
+Login form
+USERNAME
+PASSWORD
+
+Company Signup Form
+NAME
+LICENCE
+PHONE
+EMAIL
+REGISTERED
+ISSUED
+PRICE
+TYPE
+USERNAME
+PASSWORD
+
+Trader Signup Form
+TITLE
+FNAME
+MNAME
+LNAME
+IDPROOF
+GENDER
+DOB
+PHONE
+EMAIL
+ADDRESS
+BALANCE
+USERNAME
+PASSWORD

@@ -89,4 +89,100 @@ public class TraderDAO{
       return newId;
    }
 
+   public double getRemainingBalance(String TraderId) throws SQLException{
+      String queryString = "SELECT balance FROM transaction_party WHERE trader_id = '" + TraderId + "'";
+
+      TransactionPartyDAO tpdao = new TransactionPartyDAO(dbUrl, dbUser, dbPass);
+      connect();
+
+      Statement balanceSTAT = dbConnection.createStatement();
+      ResultSet balanceRSET = balanceSTAT.executeQuery(queryString);
+
+      if(balanceRSET.next()){
+         double ret = balanceRSET.getDouble(1);
+         disconnect();
+         return ret;
+      }else{
+         disconnect();
+         return 0;
+      }
+   }
+
+   public List<String> getInvestments(String TraderId) throws SQLException{
+      TransactionPartyDAO tpdao = new TransactionPartyDAO(dbUrl, dbUser, dbPass);
+
+      String queryString = "SELECT DISTINCT seller_id FROM transaction WHERE buyer_id = '" + tpdao.getTraderTpid(TraderId) + "'";
+
+      List<String> companyIds = new ArrayList<String>();
+      connect();
+
+      Statement getSellersSTAT = dbConnection.createStatement();
+      ResultSet getSellersRSET = getSellersSTAT.executeQuery(queryString);
+
+      while(getSellersRSET.next()){
+         if(tpdao.isCompany(getSellersRSET.getString(1))){
+            companyIds.add(tpdao.getRealId(getSellersRSET.getString(1)));
+         }
+      }
+
+      disconnect();
+      return companyIds;
+   }
+
+   public double getInvestedNo(String TraderId, String CompanyId) throws SQLException{
+      TransactionPartyDAO tpdao = new TransactionPartyDAO(dbUrl, dbUser, dbPass);
+
+      String queryString = "SELECT number FROM transaction WHERE buyer_id = '" + tpdao.getTraderTpid(TraderId) + "' and seller_id = '" + tpdao.getCompanyTpid(CompanyId) + "'";
+
+      int ret = 0;
+      connect();
+      Statement boughtSTAT = dbConnection.createStatement();
+      ResultSet boughtRSET = boughtSTAT.executeQuery(queryString);
+
+      while(boughtRSET.next()){
+         ret += boughtRSET.getInt(1);
+      }
+      disconnect();
+
+      queryString = "SELECT t.number FROM transaction t, securities s WHERE s.id = t.security_id and s.company_id = '" + CompanyId +"' and t.seller_id = '" + tpdao.getTraderTpid(TraderId) + "'";
+
+      connect();
+      Statement soldSTAT = dbConnection.createStatement();
+      ResultSet soldRSET = soldSTAT.executeQuery(queryString);
+
+      while(soldRSET.next()){
+         ret -= soldRSET.getInt(1);
+      }
+      disconnect();
+      return ret;
+   }
+
+   public double getTotalInvestment(String TraderId) throws SQLException{
+      TransactionPartyDAO tpdao = new TransactionPartyDAO(dbUrl, dbUser, dbPass);
+
+      String queryString = "SELECT amount FROM transaction WHERE buyer_id = '" + tpdao.getTraderTpid( TraderId ) + "'";
+
+      double ret = 0;
+      connect();
+      Statement boughtSTAT = dbConnection.createStatement();
+      ResultSet boughtRSET = boughtSTAT.executeQuery(queryString);
+
+      while(boughtRSET.next()){
+         ret += boughtRSET.getDouble(1);
+      }
+      disconnect();
+
+      queryString = "SELECT amount FROM transaction WHERE seller_id = '" + tpdao.getTraderTpid( TraderId ) + "'";
+
+      connect();
+      Statement soldSTAT = dbConnection.createStatement();
+      ResultSet soldRSET = soldSTAT.executeQuery(queryString);
+
+      while(soldRSET.next()){
+         ret -= soldRSET.getInt(1);
+      }
+      disconnect();
+      return ret;
+   }
+
 }

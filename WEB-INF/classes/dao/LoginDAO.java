@@ -59,6 +59,7 @@ public class LoginDAO{
 			companyValues.add(companyRSET.getString(5));
 			companyValues.add(companyRSET.getString(6));
 
+         disconnect();
          return companyValues;
       }else{
          traderRSET.last();
@@ -81,12 +82,14 @@ public class LoginDAO{
 			traderValues.add(traderRSET.getString(10));
 			traderValues.add(traderRSET.getString(11));
 
+         disconnect();
          return traderValues;
       }else{
          List<Object> returnValues = new ArrayList<Object>();
 
          returnValues.add("invalid login");
 
+         disconnect();
          return returnValues;
       }
    }

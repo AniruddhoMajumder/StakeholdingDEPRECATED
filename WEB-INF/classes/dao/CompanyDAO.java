@@ -80,4 +80,27 @@ public class CompanyDAO{
       return newId;
    }
 
+   public String getCompanyName(String CompanyId) throws SQLException{
+      String queryString = "SELECT name FROM company WHERE id = '" + CompanyId + "'";
+
+      connect();
+      Statement getNameSTAT = dbConnection.createStatement();
+      ResultSet getNameRSET = getNameSTAT.executeQuery(queryString);
+
+      if(getNameRSET.next()){
+         String ret = getNameRSET.getString(1);
+         disconnect();
+         return ret;
+      }else{
+         disconnect();
+         return null;
+      }
+   }
+
+   public List<String> getAvailableCompanies(){
+      TransactionPartyDAO tpdao = new TransactionPartyDAO(dbUrl, dbUser, dbPass);
+
+      String queryString = "SELECT c.id FROM company c, transaction_party tp, transaction t WHERE c.id = tp.company_id and tp.id = t.seller_id and s.issued > sum(t.number)"
+   }
+
 }

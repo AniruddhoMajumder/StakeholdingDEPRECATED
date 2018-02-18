@@ -78,4 +78,76 @@ public class SecurityDAO{
       return newId;
    }
 
+   public String getEquityShareID(String CompanyId) throws SQLException{
+      String queryString = "SELECT id FROM securities WHERE company_id = '" + CompanyId + "' and type_id = 'eshr'";
+
+      connect();
+
+      Statement getPriceSTAT = dbConnection.createStatement();
+      ResultSet getPriceRSET = getPriceSTAT.executeQuery(queryString);
+
+      if(getPriceRSET.next()){
+         String ret = getPriceRSET.getString(1);
+         disconnect();
+         return ret;
+      }else{
+         disconnect();
+         return null;
+      }
+   }
+
+   public double getEquitySharePrice(String CompanyId) throws SQLException{
+      String queryString = "SELECT price FROM securities WHERE company_id = '" + CompanyId + "' and type_id = 'eshr'";
+
+      connect();
+
+      Statement getPriceSTAT = dbConnection.createStatement();
+      ResultSet getPriceRSET = getPriceSTAT.executeQuery(queryString);
+
+      if(getPriceRSET.next()){
+         double ret = getPriceRSET.getDouble(1);
+         disconnect();
+         return ret;
+      }else{
+         disconnect();
+         return 0;
+      }
+   }
+
+   public int getEquitySharesIssued(String CompanyId) throws SQLException{
+      String queryString = "SELECT issued FROM securities WHERE company_id = '" + CompanyId + "' and type_id = 'eshr'";
+
+      connect();
+
+      Statement getIssuedSTAT = dbConnection.createStatement();
+      ResultSet getIssuedRSET = getIssuedSTAT.executeQuery(queryString);
+
+      if(getIssuedRSET.next()){
+         int ret = getIssuedRSET.getInt(1);
+         disconnect();
+         return ret;
+      }else{
+         disconnect();
+         return 0;
+      }
+   }
+
+   public int getEquitySharesSold(String CompanyId) throws SQLException{
+      String queryString = "SELECT number FROM transaction WHERE seller_id = (SELECT id FROM transaction_party WHERE company_id='" + CompanyId + "') and security_id = '" + getEquityShareID(CompanyId) + "'";
+
+      connect();
+
+      int sold = 0;
+
+      Statement getSoldSTAT = dbConnection.createStatement();
+      ResultSet getSoldRSET = getSoldSTAT.executeQuery(queryString);
+
+      while(getSoldRSET.next()){
+         sold += getSoldRSET.getInt(1);
+      }
+
+      disconnect();
+      return sold;
+   }
+
 }

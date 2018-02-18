@@ -37,7 +37,7 @@
       session.setAttribute("EMAIL", values.get(10));
       session.setAttribute("ADDRESS", values.get(11));
 
-      response.sendRedirect("./dashboard/TraderPage.html");
+      response.sendRedirect("./dashboard");
    }else{
       response.sendRedirect("./index.jsp");
    }

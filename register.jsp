@@ -20,6 +20,13 @@
 </head>
 
 <body>
+	<nav class="navbar sticky-top navbar-dark bg-info" style="padding-right: 0px !important;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="./index.jsp">Meridia</a>
+			</div>
+		</div>
+	</nav>
 	<div class="container" style="padding-top: 50px;">
 		<div class="row">
 			<div class="col-2">
